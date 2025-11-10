@@ -1,0 +1,3 @@
+[submodule "int"]
+	path = int
+	url = https://github.com/SupTan85/int.git
