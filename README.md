@@ -7,7 +7,7 @@ Example:
 
 ```lua
 -- require a module
-local int = require("int")
+local int = require("uint")
 
 -- build a new int object
 local x, y = int.new("20", "10")
