@@ -1,7 +1,7 @@
 # LUA ULTIMATE INT
 
 Make it possible to calculate large number (bignum) in Lua, Pure Lua number library!\
-**POWER BY INT DOT LUA**
+**POWERED BY INT DOT LUA**
 
 Example:
 
