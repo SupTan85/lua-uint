@@ -17,6 +17,6 @@ dependencies = {
 build = {
   type = "builtin",
   modules = {
-    uint = "int/int.lua"
+    uint = "src/int.lua"
   }
 }
