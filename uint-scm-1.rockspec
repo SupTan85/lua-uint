@@ -1,7 +1,8 @@
 package = "uint"
 version = "scm-1"
 source = {
-    url = "git://github.com/SupTan85/lua-uint.git"
+    url = "git://github.com/SupTan85/lua-uint.git",
+    tag = "186-5-beta"
 }
 
 description = {
