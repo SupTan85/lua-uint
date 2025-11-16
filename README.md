@@ -28,8 +28,8 @@ print(x ^ y) -- output: 10240000000000
   - addition `+`
   - subtraction `-`
   - multiplication `*`
-  - division `\`
-  - floor division `\\`
+  - division `/`
+  - floor division `//`
   - modulo `%`
   - power `^`
 - **Equation**

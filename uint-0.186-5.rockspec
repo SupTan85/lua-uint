@@ -6,7 +6,7 @@ source = {
 }
 
 description = {
-    summary    = "make it possible to calculate large number (bignum) in Lua, Pure Lua number library!",
+    summary    = "Enable large-number arithmetic (bignum) in Lua, Pure Lua number library!",
     homepage   = "https://github.com/SupTan85/lua-uint.git",
     license    = "MIT"
 }
