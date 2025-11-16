@@ -1,6 +1,6 @@
 # LUA ULTIMATE INT
 
-Make it possible to calculate large number (bignum) in Lua, Pure Lua number library!\
+Enable large-number arithmetic (bignum) in Lua, Pure Lua number library!\
 **POWERED BY INT DOT LUA**
 
 > [!NOTE]
@@ -28,7 +28,8 @@ print(x ^ y) -- output: 10240000000000
   - addition `+`
   - subtraction `-`
   - multiplication `*`
-  - division `\, \\`
+  - division `\`
+  - floor division `\\`
   - modulo `%`
   - power `^`
 - **Equation**
