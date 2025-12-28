@@ -219,11 +219,7 @@ master.custom = {
         if resultonly then
             return result
         end
-        if result[new_dlen] == 0 then
-            print(length)
-            error("sucks!")
-        end
-        return result, new_dlen, prlen
+        return result, new_dlen or dlen, prlen
     end,
 
     _refresh = function(x, lu, endp) -- refresh all chunk that should to be, by fast `ADD` process.
