@@ -1,8 +1,8 @@
 package = "uint"
-version = "0.186-6"
+version = "0.186-7"
 source = {
     url = "git://github.com/SupTan85/lua-uint.git",
-    tag = "186-6-beta"
+    tag = "186-7-beta"
 }
 
 description = {
