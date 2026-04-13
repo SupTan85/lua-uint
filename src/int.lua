@@ -2,9 +2,9 @@
 --                 ULTIMATE INT                   --
 ----------------------------------------------------
 -- MODULE VERSION: 186
--- BUILD  VERSION: 186.7 (14/04/2026) dd:mm:yyyy
+-- BUILD  VERSION: 186.7 (16/04/2026) dd:mm:yyyy
 -- USER FEATURE: 26/11/2025
--- DEV  FEATURE: 14/04/2026
+-- DEV  FEATURE: 27/12/2025
 -- AUTHOR: SupTan85
 -- LICENSE: MIT (the same license as Lua itself)
 -- LINK: https://github.com/SupTan85/int.lua
@@ -48,7 +48,7 @@ local master = {
                 By SupTan85
             << BUILD-IN >>]]
             MASTER_CALCULATE_DIV_AUTO_CONFIG_ITERATIONS = true,
-            MASTER_CALCULATE_DIV_AUTO_CONFIG_ITERATIONS_BUFF_MODE = true, -- use buff-accurate for more accuracy. note: very slow but high accuracy!
+            MASTER_CALCULATE_DIV_AUTO_CONFIG_ITERATIONS_BUFF_MODE = false, -- use buff-accurate for more accuracy. note: very slow but high accuracy!
         },
 
         ACCURACY_LIMIT = {
@@ -562,9 +562,8 @@ master.calculate = {
                         break
                     end
                 end
-            else
-                result[i] = result[i] or 0
             end
+            result[i] = result[i] or 0
         end
         for i = #result, 1, -1 do
             if result[i] == 0 then
@@ -899,13 +898,13 @@ function media.less(x, y) -- work same `equation.less` but support sign config.
     local xs, ys = assets.FSZero(x, y)
     xs, ys = xs._sign, ys._sign
     local nox = xs ~= ys
-    return nox and ys == "+" or (not nox and master.equation.less(x, y))
+    return nox and xs == "-" or (not nox and (xs == "-" and master.equation.more(x, y) or (xs ~= "-" and master.equation.less(x, y))))
 end
 function media.more(x, y) -- work same `equation.more` but support sign config.
     local xs, ys = assets.FSZero(x, y)
     xs, ys = xs._sign, ys._sign
     local nox = xs ~= ys
-    return nox and ys == "-" or (not nox and master.equation.more(x, y))
+    return nox and xs == "+" or (not nox and (xs == "+" and master.equation.more(x, y) or (xs ~= "+" and master.equation.less(x, y))))
 end
 
 function media.integerlen(x) -- Returns number integer digits, that was in object.
@@ -1015,7 +1014,7 @@ end
 
 function media.modf(x) -- Returns the integral part of `x` and the decimal part of `x`.
     x = media.vtype(x or error("[MODF] VOID_INPUT"))
-    local frac = {sign = x._sign or "+", _dlen = x._dlen or 1, _size = x._size}
+    local frac = {_sign = x._sign or "+", _dlen = x._dlen or 1, _size = x._size}
     for i = frac._dlen, 0 do
         frac[i] = x[i]
     end
@@ -1076,10 +1075,11 @@ function media.sqrt(x, f, l) -- Returns the Square root of `x`. (`f` The maxiumu
     end
     local res = x
     local TOLERANCE = f or ACCURACY_LIMIT.MEDIA_DEFAULT_SQRTROOT_TOLERANCE
+    local TOLERANCE_OBJINT = media.convert(TOLERANCE, x._size)
     for _ = 1, max(l or ACCURACY_LIMIT.MEDIA_DEFAULT_SQRTROOT_MAXITERATIONS, 1) do
         local next_res = (res + custom:cround(x / res, max(0, TOLERANCE - 1))) * 0.5
         local ave = next_res - res
-        if #ave <= 1 and (ave[1] or 0) == 0 and media.decimallen(ave) >= TOLERANCE then
+        if #ave <= 1 and (ave[1] or 0) == 0 and media.decimallen(ave):eqmore(TOLERANCE_OBJINT) then
             return custom:cround(next_res, TOLERANCE)
         end
         res = next_res
@@ -1143,9 +1143,9 @@ do
         div = media.cdiv,
         unm = media.unm,
 
-        equal = master.equation.equal,
-        less = master.equation.less,
-        more = master.equation.more,
+        equal = media.equal,
+        less = media.less,
+        more = media.more,
         
         setmetatable = setmetatable
     }
